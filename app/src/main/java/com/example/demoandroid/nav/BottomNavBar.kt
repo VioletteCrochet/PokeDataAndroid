@@ -24,7 +24,7 @@ class BottomNavBar : ComponentActivity() {
         }
     }
 }
-/*@Composable
+@Composable
 fun BottomNavBar(navController: NavController) {
     val items = listOf(Activity.Home, Activity.PokemonList, Activity.Login, Activity.Signup)
 
@@ -53,4 +53,4 @@ fun BottomNavBar(navController: NavController) {
 @Composable
 fun BottomNavBarPreview() {
     BottomNavBar();
-}*/
+}

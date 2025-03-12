@@ -41,8 +41,8 @@ android {
 }
 
 dependencies {
-    implementation(libs.coil3.coil.compose)
-    implementation(libs.coil.network.okhttp)
+    implementation("io.coil-kt.coil3:coil-compose:3.1.0")
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.1.0")
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.navigation.ui)

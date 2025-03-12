@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            PokedexDisplay();
+            RegistrationForm();
         }
     }
 }
@@ -94,5 +94,5 @@ fun RegistrationForm() {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    PokedexDisplay();
+    RegistrationForm();
 }

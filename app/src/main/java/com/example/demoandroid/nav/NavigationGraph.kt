@@ -1,6 +1,7 @@
 package com.example.demoandroid.nav
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -19,9 +20,9 @@ sealed class Activity(val route: String) {
 @Composable
 fun NavigationGraph(navController: NavHostController) {
     NavHost(navController, startDestination = Activity.Home.route) {
-        composable(Activity.Home.route) { LoginActivity() }
-        composable(Activity.PokemonList.route) { PokedexActivity() }
-        composable(Activity.Login.route) { LoginActivity() }
-        composable(Activity.Signup.route) { RegisterActivity() }
+        composable(Activity.Home.route) { LoginActivity(navController) }
+        composable(Activity.PokemonList.route) { PokedexActivity(navController) }
+        composable(Activity.Login.route) { LoginActivity(navController }
+        composable(Activity.Signup.route) { RegisterActivity(navController }
     }
 }

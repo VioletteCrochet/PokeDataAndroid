@@ -6,14 +6,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -39,7 +38,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavGraph
 import androidx.navigation.compose.rememberNavController
 import coil3.compose.AsyncImage
 import com.example.demoandroid.R
@@ -48,14 +46,13 @@ import com.example.demoandroid.nav.NavigationGraph
 import com.example.demoandroid.pokemon.Pokemon
 
 
-
 @Composable
 fun MyPage(content: @Composable () -> Unit) {
     DemoAndroidTheme {
-        //val navController = rememberNavController()
+        val navController = rememberNavController()
         Scaffold(
             modifier = Modifier.fillMaxSize(),
-            //bottomBar = { BottomNavBar(navController) }
+            bottomBar = { BottomNavBar(navController) }
         ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
                 Image(
@@ -66,7 +63,7 @@ fun MyPage(content: @Composable () -> Unit) {
                 )
                 content()
                 Box() {
-                    //NavigationGraph(navController) // Charge le graphique de navigation
+                    NavigationGraph(navController) // Charge le graphique de navigation
                 }
             }
         }
@@ -86,10 +83,11 @@ fun Title(text: String, bottomPadding: Dp = 100.dp){
         modifier = Modifier.fillMaxWidth().padding(bottom = bottomPadding))
 }
 
-@Composable
+/*@Composable
 fun ConditionalIcon(icon: ImageVector? ) {
     icon?.let { Icon(imageVector = icon, contentDescription = null, tint = Color(0xFFF0F0DF) ) }
-}
+}*/
+
 @Composable
 fun TitlewithIcon (title: String, icon: ImageVector) {
     Column(horizontalAlignment = Alignment.CenterHorizontally)
@@ -107,7 +105,6 @@ fun TitlewithIcon (title: String, icon: ImageVector) {
 fun MyTextField(hintText: String = "", modifier: Modifier = Modifier, icon: ImageVector? = null) {
     TextField(modifier = modifier
         .fillMaxWidth(),
-        leadingIcon = { ConditionalIcon(icon) },
         value = "", onValueChange = {},
         shape = RoundedCornerShape(30.dp),
         colors = TextFieldDefaults.colors(
@@ -117,7 +114,16 @@ fun MyTextField(hintText: String = "", modifier: Modifier = Modifier, icon: Imag
             unfocusedIndicatorColor = Color.Transparent,
             disabledIndicatorColor = Color.Transparent,
         ),
-        placeholder = { Text(text = hintText, color = Color(0xFFF0F0DF))}
+        placeholder = {
+            Row {
+                if (icon !=null ) {
+                    Icon(imageVector = icon, contentDescription = null, tint = Color(0xFFF0F0DF) )
+                }
+                Text(text = hintText, color = Color(0xFFF0F0DF))
+            }
+
+        }
+
     )
 }
 
