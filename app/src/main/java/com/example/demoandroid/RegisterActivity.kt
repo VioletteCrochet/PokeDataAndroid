@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Call
@@ -19,30 +21,37 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.example.demoandroid.helpers.AppViewHelper
 import com.example.demoandroid.ui.theme.MyButton
 import com.example.demoandroid.ui.theme.MyPage
 import com.example.demoandroid.ui.theme.MyTextField
 import com.example.demoandroid.ui.theme.TitlewithIcon
 import com.example.demoandroid.ui.theme.WrapPaddingRowWeight
 
-class RegisterActivity : ComponentActivity() {
+class RegisterActivity() : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            RegisterForm();
+            val navController = rememberNavController()
+            RegisterScreen(navController)
         }
     }
 }
 
 @Composable
-fun RegisterForm() {
-    MyPage {
-        Column(modifier = Modifier.padding(20.dp)) {
+fun RegisterScreen(navController: NavHostController) {
+    val context = LocalContext.current
+    MyPage (){
+        Column(modifier = Modifier.padding(20.dp).verticalScroll(rememberScrollState())) {
             Spacer(modifier = Modifier.weight(1f))
             Row {
                 WrapPaddingRowWeight {
@@ -56,6 +65,9 @@ fun RegisterForm() {
                 WrapPaddingRowWeight { MyTextField(hintText = stringResource(R.string.app_field_password_hint), icon = Icons.Default.Lock) }
             }
             Row {
+                WrapPaddingRowWeight { MyTextField(hintText = stringResource(R.string.app_field_password_confirm_hint), icon = Icons.Default.Lock) }
+            }
+            Row {
                 WrapPaddingRowWeight { MyTextField(hintText = stringResource(R.string.app_field_city_code_hint), icon = Icons.Default.LocationOn) }
             }
             Row {
@@ -65,14 +77,14 @@ fun RegisterForm() {
                 WrapPaddingRowWeight { MyTextField(hintText = stringResource(R.string.app_field_phone_hint), icon = Icons.Default.Call) }
             }
             Row {
-                WrapPaddingRowWeight { MyButton(buttonText = stringResource(R.string.app_btn_sign_in)) }
+                WrapPaddingRowWeight { MyButton(buttonText = stringResource(R.string.app_btn_sign_in), onClick = { navController.navigate("login") }) }
             }
             Spacer(modifier = Modifier.weight(1f))
             Row {
                 Text(stringResource(R.string.app_msg_ask_account), fontStyle = FontStyle.Italic, color = Color.LightGray)
             }
             Row {
-                WrapPaddingRowWeight { MyButton(stringResource(R.string.app_btn_login)) }
+                WrapPaddingRowWeight { MyButton(stringResource(R.string.app_btn_login),onClick = { AppViewHelper.openActivity(context, RegisterActivity::class) }) }
             }
         }
     }
@@ -81,5 +93,6 @@ fun RegisterForm() {
 @Preview(showBackground = true)
 @Composable
 fun RegisterPreview() {
-    RegisterForm();
+    val navController = rememberNavController()
+    RegisterScreen(navController)
 }

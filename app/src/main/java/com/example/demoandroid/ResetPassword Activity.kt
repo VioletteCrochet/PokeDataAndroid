@@ -13,10 +13,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.demoandroid.ui.theme.MyButton
 import com.example.demoandroid.ui.theme.MyPage
 import com.example.demoandroid.ui.theme.MyTextField
@@ -27,14 +31,16 @@ class ResetPasswordActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            ResetPasswordForm();
+            val navController = rememberNavController()
+            ResetPasswordScreen(navController)
         }
     }
 }
 
 @Composable
-fun ResetPasswordForm() {
-    MyPage {
+fun ResetPasswordScreen(navController: NavHostController) {
+    val context = LocalContext.current
+    MyPage () {
         Column(modifier = Modifier.padding(20.dp)) {
             Spacer(modifier = Modifier.weight(1f))
             Row (){
@@ -51,7 +57,7 @@ fun ResetPasswordForm() {
                 WrapPaddingRowWeight { MyTextField(hintText = "Email") }
             }
             Row {
-                WrapPaddingRowWeight { MyButton("Send Link") }
+                WrapPaddingRowWeight { MyButton("Send Link",) }
             }
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -61,5 +67,6 @@ fun ResetPasswordForm() {
 @Preview(showBackground = true)
 @Composable
 fun ResetPasswordPreview() {
-    ResetPasswordForm();
+    val navController = rememberNavController()
+    ResetPasswordScreen(navController);
 }

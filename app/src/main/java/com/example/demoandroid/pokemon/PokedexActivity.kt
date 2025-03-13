@@ -9,28 +9,39 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.demoandroid.R
-import com.example.demoandroid.nav.BottomNavBar
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+//import com.example.demoandroid.nav.NavigationGraph
 import com.example.demoandroid.ui.theme.MyPage
 import com.example.demoandroid.ui.theme.PokemonCard
 import com.example.demoandroid.ui.theme.WrapPaddingRowWeight
 
-class PokedexActivity : ComponentActivity() {
+
+class PokedexActivity() : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        var viewModel = PokedexViewModel()
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            PokedexDisplay();
+            val navController = rememberNavController()
+            PokedexScreen(viewModel, navController)
         }
     }
 }
 
 @Composable
-fun PokedexDisplay() {
-    MyPage {
+fun PokedexScreen(viewModel: PokedexViewModel, navController: NavHostController) {
+    val context = LocalContext.current
+    val pokemonsState by viewModel.pokemons.collectAsState();
+
+    MyPage () {
+
         Column(modifier = Modifier.padding(20.dp)) {
             Spacer(modifier = Modifier.weight(1f))
             val pokemons = listOf(
@@ -66,5 +77,7 @@ fun PokedexDisplay() {
 @Preview(showBackground = true)
 @Composable
 fun PokedexPreview() {
-    PokedexDisplay();
+    val navController = rememberNavController()
+    var viewModel = PokedexViewModel()
+    PokedexScreen(viewModel, navController)
 }

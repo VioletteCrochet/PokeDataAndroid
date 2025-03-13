@@ -1,5 +1,7 @@
 package com.example.demoandroid.ui.theme
 
+//import com.example.demoandroid.nav.NavigationGraph
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -38,16 +40,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil3.compose.AsyncImage
 import com.example.demoandroid.R
 import com.example.demoandroid.nav.BottomNavBar
-import com.example.demoandroid.nav.NavigationGraph
 import com.example.demoandroid.pokemon.Pokemon
 
 
 @Composable
-fun MyPage(content: @Composable () -> Unit) {
+fun MyPage( @DrawableRes backgroundId: Int = R.drawable.background_page, content: @Composable () -> Unit) {
     DemoAndroidTheme {
         val navController = rememberNavController()
         Scaffold(
@@ -56,14 +58,14 @@ fun MyPage(content: @Composable () -> Unit) {
         ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
                 Image(
-                    painter = painterResource(R.drawable.background_page),
+                    painter = painterResource(backgroundId),
                     contentDescription = "",
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Crop
                 )
                 content()
                 Box() {
-                    NavigationGraph(navController) // Charge le graphique de navigation
+//                    NavigationGraph(navController)
                 }
             }
         }
@@ -128,8 +130,8 @@ fun MyTextField(hintText: String = "", modifier: Modifier = Modifier, icon: Imag
 }
 
 @Composable
-fun MyButton(buttonText: String = "", modifier: Modifier = Modifier) {
-    Button(onClick = {},
+fun MyButton(buttonText: String = "", modifier: Modifier = Modifier, onClick: () -> Unit = {}) {
+    Button(onClick = onClick,
         contentPadding = PaddingValues(),
         border = BorderStroke(2.dp, Color(0x99FFFFFF)),
         modifier = modifier

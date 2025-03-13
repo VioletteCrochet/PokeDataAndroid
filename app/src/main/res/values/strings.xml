@@ -6,6 +6,7 @@
     <string name="app_btn_forget_password">Forgotten password</string>
     <string name="app_field_email_hint">Email</string>
     <string name="app_field_password_hint">Password</string>
+    <string name="app_field_password_confirm_hint">Confirm Password</string>
     <string name="app_field_city_hint">City</string>
     <string name="app_field_city_code_hint">City Code</string>
     <string name="app_field_phone_hint">Phone Number</string>
