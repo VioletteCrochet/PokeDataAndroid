@@ -51,10 +51,10 @@ import com.example.demoandroid.pokemon.Pokemon
 @Composable
 fun MyPage( @DrawableRes backgroundId: Int = R.drawable.background_page, content: @Composable () -> Unit) {
     DemoAndroidTheme {
-        val navController = rememberNavController()
+        //val navController = rememberNavController()
         Scaffold(
             modifier = Modifier.fillMaxSize(),
-            bottomBar = { BottomNavBar(navController) }
+            //bottomBar = { BottomNavBar(navController) }
         ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
                 Image(
