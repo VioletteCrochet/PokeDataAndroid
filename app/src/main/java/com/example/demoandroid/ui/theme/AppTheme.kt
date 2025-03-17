@@ -42,7 +42,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import coil3.compose.AsyncImage
+import coil.compose.AsyncImage
 import com.example.demoandroid.R
 import com.example.demoandroid.nav.BottomNavBar
 import com.example.demoandroid.pokemon.Pokemon
