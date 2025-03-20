@@ -1,14 +1,40 @@
 package com.example.demoandroid.article
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.demoandroid.R
+import com.example.demoandroid.helpers.AppDialogHelpers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 
-class ArticleListViewModel: ViewModel() {
-    var articles = MutableStateFlow<List<Article>>(
-        mutableListOf(
-            Article("ytyrt", "a", "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Hoste%2C_Église_Saint-Maurice.jpg/280px-Hoste%2C_Église_Saint-Maurice.jpg") ,
-            Article("yeeeey", "b","https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Hoste%2C_Église_Saint-Maurice.jpg/280px-Hoste%2C_Église_Saint-Maurice.jpg"),
-            Article("hellooooo", "c", "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Hoste%2C_Église_Saint-Maurice.jpg/280px-Hoste%2C_Église_Saint-Maurice.jpg")
-        )
-    )
+class ArticleListViewModel(application: Application): AndroidViewModel(application) {
+    var articles = MutableStateFlow<List<Article>>(mutableListOf())
+
+    /**
+     * *Fonction qui recherge la liste des personnes dans le view model
+     */
+    fun reloadArticles() {
+
+        val message = getApplication<Application>().getString(R.string.app_dialog_loading_articles)
+
+        AppDialogHelpers.get().showDialog(message)
+
+        viewModelScope.launch { // tâche async
+            delay(1000)
+
+            val apiResponse = ArticleService.ArticleApi.articleService.getArticles()
+
+            AppDialogHelpers.get().closeDialog()
+
+            // TODO : Afficher le message popup
+            println(apiResponse.message)
+
+            // Tester si OK : 200
+            if (apiResponse.code.equals("200")){
+                articles.value = apiResponse.data!!
+            }
+        }
+    }
 }

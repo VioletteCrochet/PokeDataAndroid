@@ -1,4 +1,5 @@
 package com.example.demoandroid.auth
 
-class LoginDTO {
+data class LoginDTO(var email: String, var password : String) {
+
 }

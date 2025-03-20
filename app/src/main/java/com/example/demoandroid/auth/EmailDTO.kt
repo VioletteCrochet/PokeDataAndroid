@@ -1,4 +1,5 @@
 package com.example.demoandroid.auth
 
-class EmailDTO {
+data class EmailDTO(var email: String) {
+
 }

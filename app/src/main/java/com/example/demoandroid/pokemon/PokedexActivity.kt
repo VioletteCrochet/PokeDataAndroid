@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -18,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.demoandroid.demostateful.Person
@@ -34,7 +37,7 @@ class PokedexActivity() : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-//            val navController = rememberNavController()
+//          val navController = rememberNavController()
             PokedexScreen(viewModel)
         }
     }
@@ -46,7 +49,7 @@ fun PokedexScreen(viewModel: PokedexViewModel) {
     val pokemonsState by viewModel.pokemons.collectAsState();
 
     MyPage () {
-        Column(modifier = Modifier.padding(20.dp)) {
+        Column(modifier = Modifier.padding(20.dp).verticalScroll(rememberScrollState())) {
             Spacer(modifier = Modifier.weight(1f))
             LazyColumn {
                 items(pokemonsState) { pokemon ->
@@ -56,6 +59,7 @@ fun PokedexScreen(viewModel: PokedexViewModel) {
                         }
                     }
                 }
+
             }
             Row {
                 WrapPaddingRowWeight {
@@ -64,6 +68,7 @@ fun PokedexScreen(viewModel: PokedexViewModel) {
                     })
                 }
             }
+
             Spacer(modifier = Modifier.weight(1f))
         }
     }
@@ -74,7 +79,7 @@ fun PokedexScreen(viewModel: PokedexViewModel) {
 @Preview(showBackground = true)
 @Composable
 fun PokedexPreview() {
-    val navController = rememberNavController()
+//  val navController = rememberNavController()
     var viewModel = PokedexViewModel()
     PokedexScreen(viewModel)
 }

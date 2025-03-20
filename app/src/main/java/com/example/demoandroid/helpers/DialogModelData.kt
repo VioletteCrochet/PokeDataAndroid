@@ -1,4 +1,4 @@
 package com.example.demoandroid.helpers
 
-class DialogModelData {
+data class DialogModelData(var isShow : Boolean = false, var message : String = "") {
 }

@@ -13,13 +13,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.demoandroid.LoginActivity
-import com.example.demoandroid.RegisterActivity
-import com.example.demoandroid.ResetPasswordScreen
+import com.example.demoandroid.auth.LoginActivity
+import com.example.demoandroid.auth.RegisterActivity
 import com.example.demoandroid.helpers.AppViewHelper
 import com.example.demoandroid.pokemon.PokedexActivity
 

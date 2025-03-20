@@ -6,13 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.demoandroid.LoginScreen
-import com.example.demoandroid.RegisterScreen
-import com.example.demoandroid.nav.Screen
-import com.example.demoandroid.pokemon.PokedexScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,5 +34,5 @@ fun MainScreen() {
 @Composable
 fun GreetingPreview() {
     val navController = rememberNavController()
-    RegisterScreen(navController)
+    MainScreen()
 }

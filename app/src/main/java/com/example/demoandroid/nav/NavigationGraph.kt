@@ -1,14 +1,5 @@
 package com.example.demoandroid.nav
 
-import androidx.compose.runtime.Composable
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import com.example.demoandroid.LoginScreen
-import com.example.demoandroid.RegisterScreen
-import com.example.demoandroid.pokemon.PokedexScreen
-import com.example.demoandroid.pokemon.PokemonScreen
-
 sealed class Screen(val route: String) {
     object Home : Screen("home")
     object Pokedex : Screen("pokedex")

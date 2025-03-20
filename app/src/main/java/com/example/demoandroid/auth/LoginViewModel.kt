@@ -1,42 +1,39 @@
-package com.example.demoandroid.article
+package com.example.demoandroid.auth
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.demoandroid.R
 import com.example.demoandroid.helpers.AppDialogHelpers
-import kotlinx.coroutines.Delay
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
-class ArticleListViewModel(application: Application): AndroidViewModel(application) {
-    var articles = MutableStateFlow<List<Article>>(mutableListOf())
 
-    /**
-     * *Fonction qui recherge la liste des personnes dans le view model
-     */
-    fun reloadArticles() {
+class LoginViewModel: ViewModel() {
+    var email = MutableStateFlow("isaac@gmail.com")
+    var password = MutableStateFlow("password")
+    //var loginRequestData = MutableStateFlow<LoginDTO>()
 
-        val message = getApplication<Application>().getString(R.string.app_dialog_loading_articles)
+    fun callLoginApi(onSuccess : () -> Unit = {}){
+        AppDialogHelpers.get().showDialog("Tentive de connexion...");
 
-        AppDialogHelpers.get().showDialog(message)
+        viewModelScope.launch {
+            // Preparer le DTO à envoyer dans request body
+            // Le DTO qui contient : email et password
+            val loginRequest = LoginDTO(email.value, password.value);
 
-        viewModelScope.launch { // tâche async
-            delay(1000)
+            // Appel api async
+            val responseService = LoginService.LoginApi.loginService.login(loginRequest);
 
-            val apiResponse = ArticleService.ArticleApi.articleService.getArticles()
-
+            // Fermer la popup de chargement aprés l'appel de API
             AppDialogHelpers.get().closeDialog()
 
-            // TODO : Afficher le message popup
-            println(apiResponse.message)
-
-            // Tester si OK : 200
-            if (apiResponse.code.equals("200")){
-                articles.value = apiResponse.data!!
-            }
+            // Si connexion ok
+           if (responseService.code.equals("200")){
+                onSuccess()
+           }
+           else{
+               // Erreur
+           }
         }
     }
 }

@@ -2,6 +2,7 @@ package com.example.demoandroid.article
 
 //import com.example.demoandroid.nav.NavigationGraph
 import android.annotation.SuppressLint
+import android.app.Application
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -28,15 +29,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.demoandroid.R
+import com.example.demoandroid.ui.theme.MyButton
 import com.example.demoandroid.ui.theme.MyPage
 import com.example.demoandroid.ui.theme.WrapPadding
+import com.example.demoandroid.ui.theme.WrapPaddingRowWeight
 
-class DemoViewModelActivity() : ComponentActivity() {
+class ArticleListViewModelActivity() : ComponentActivity() {
 
-    var viewModel = ArticleListViewModel()
+    lateinit var viewModel : ArticleListViewModel;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        var viewModel = ArticleListViewModel(application)
         setContent {
             ArticleListViewModelScreen(viewModel)
         }
@@ -56,7 +61,7 @@ fun ArticleListViewModelScreen(viewModel: ArticleListViewModel) {
                         ElevatedCard() {
                             Row(modifier = Modifier.padding(vertical = 10.dp)) {
                                 AsyncImage(
-                                    model = "https://picsum.photos/id/237/200/300",
+                                    model = article.imgPath,
                                     placeholder = painterResource(R.drawable.placholder_img),
                                     contentDescription = "erthgnfbdstryjhg",
                                     modifier = Modifier.width(96.dp),
@@ -79,6 +84,13 @@ fun ArticleListViewModelScreen(viewModel: ArticleListViewModel) {
 
                 }
             }
+            Row {
+                WrapPaddingRowWeight {
+                    MyButton(buttonText = "Refresh View", onClick = {
+                        viewModel.reloadArticles()
+                    })
+                }
+            }
         }
     }
 }
@@ -89,6 +101,8 @@ fun ArticleListViewModelScreen(viewModel: ArticleListViewModel) {
 @Preview(showBackground = true)
 @Composable
 fun ArticleListViewModelPreview() {
-    var viewModel = ArticleListViewModel()
+
+    val application = LocalContext.current.applicationContext as Application
+    var viewModel = ArticleListViewModel(application)
     ArticleListViewModelScreen(viewModel)
 }

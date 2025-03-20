@@ -10,6 +10,8 @@
     <string name="app_field_city_hint">City</string>
     <string name="app_field_city_code_hint">City Code</string>
     <string name="app_field_phone_hint">Phone Number</string>
+    <string name="app_dialog_loading_articles">Loading articles ...</string>
+
 
     <string name="app_msg_no_account">Don\'t have an account?</string>
     <string name="app_msg_ask_account">Already have an account?</string>

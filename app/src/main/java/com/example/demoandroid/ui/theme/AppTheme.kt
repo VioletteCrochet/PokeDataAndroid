@@ -44,6 +44,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.example.demoandroid.R
+import com.example.demoandroid.helpers.ProgressDialog
 import com.example.demoandroid.nav.BottomNavBar
 import com.example.demoandroid.pokemon.Pokemon
 
@@ -64,6 +65,7 @@ fun MyPage( @DrawableRes backgroundId: Int = R.drawable.background_page, content
                     contentScale = ContentScale.Crop
                 )
                 content()
+                ProgressDialog()
                 Box() {
 //                    NavigationGraph(navController)
                 }
@@ -104,10 +106,11 @@ fun TitlewithIcon (title: String, icon: ImageVector) {
     }
 }
 @Composable
-fun MyTextField(hintText: String = "", modifier: Modifier = Modifier, icon: ImageVector? = null) {
+fun MyTextField(hintText: String = "", value: String = "", modifier: Modifier = Modifier, icon: ImageVector? = null, onValueChange: (String) -> Unit = {}) {
     TextField(modifier = modifier
         .fillMaxWidth(),
-        value = "", onValueChange = {},
+        value = value,
+        onValueChange = onValueChange,
         shape = RoundedCornerShape(30.dp),
         colors = TextFieldDefaults.colors(
             unfocusedContainerColor = Color(0x55EEEEEE),
