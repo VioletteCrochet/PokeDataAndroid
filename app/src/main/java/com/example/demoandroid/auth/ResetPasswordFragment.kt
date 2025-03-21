@@ -27,24 +27,10 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.demoandroid.R
-import com.example.demoandroid.helpers.AppViewHelper
 import com.example.demoandroid.ui.theme.MyButton
 import com.example.demoandroid.ui.theme.MyPage
 import com.example.demoandroid.ui.theme.MyTextField
 import com.example.demoandroid.ui.theme.WrapPaddingRowWeight
-
-class ResetPasswordActivity : ComponentActivity() {
-    @SuppressLint("ViewModelConstructorInComposable")
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            val viewModel = ResetPasswordViewModel()
-            val navController = rememberNavController()
-            ResetPasswordScreen(navController, viewModel)
-        }
-    }
-}
 
 @Composable
 fun ResetPasswordScreen(navController: NavHostController, viewModel: ResetPasswordViewModel) {

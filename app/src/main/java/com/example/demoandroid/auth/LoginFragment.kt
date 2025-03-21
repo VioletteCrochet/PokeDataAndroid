@@ -1,10 +1,6 @@
 package com.example.demoandroid.auth
 
 import android.annotation.SuppressLint
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -34,23 +30,9 @@ import com.example.demoandroid.ui.theme.SecondaryTextInfo
 import com.example.demoandroid.ui.theme.TitlewithIcon
 import com.example.demoandroid.ui.theme.WrapPaddingRowWeight
 
-class LoginActivity() : ComponentActivity() {
-    @SuppressLint("ViewModelConstructorInComposable")
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            val viewModel = LoginViewModel()
-            val navController = rememberNavController()
-            LoginScreen(navController, loginViewModel = viewModel)
-        }
-    }
-}
-
 @Composable
 fun LoginScreen(navController: NavHostController, loginViewModel: LoginViewModel) {
     val context = LocalContext.current
-
     val email by loginViewModel.email.collectAsState()
     val password by loginViewModel.password.collectAsState()
 
@@ -76,7 +58,7 @@ fun LoginScreen(navController: NavHostController, loginViewModel: LoginViewModel
             }
             Row {
                 WrapPaddingRowWeight { MyButton(buttonText = stringResource(R.string.app_btn_forget_password),
-                    onClick = { AppViewHelper.openActivity(context, ResetPasswordActivity::class) }) }
+                    onClick = { navController.navigate("reset-password")} ) }
             }
             Row {
                 WrapPaddingRowWeight { MyButton(stringResource(R.string.app_btn_login),
@@ -92,7 +74,7 @@ fun LoginScreen(navController: NavHostController, loginViewModel: LoginViewModel
             Row {
                 WrapPaddingRowWeight { MyButton(
                     buttonText = stringResource(R.string.app_btn_sign_in,),
-                    onClick = { AppViewHelper.openActivity(context, RegisterActivity::class) })
+                    onClick = { navController.navigate("register") })
                 }
             }
         }

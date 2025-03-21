@@ -45,7 +45,7 @@ import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.example.demoandroid.R
 import com.example.demoandroid.helpers.ProgressDialog
-import com.example.demoandroid.nav.BottomNavBar
+//import com.example.demoandroid.nav.BottomNavBar
 import com.example.demoandroid.pokemon.Pokemon
 
 

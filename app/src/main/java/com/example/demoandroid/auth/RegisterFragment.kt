@@ -1,10 +1,6 @@
 package com.example.demoandroid.auth
 
 import android.annotation.SuppressLint
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -32,26 +28,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.demoandroid.R
-import com.example.demoandroid.article.ArticleListViewModelActivity
-import com.example.demoandroid.helpers.AppViewHelper
 import com.example.demoandroid.ui.theme.MyButton
 import com.example.demoandroid.ui.theme.MyPage
 import com.example.demoandroid.ui.theme.MyTextField
 import com.example.demoandroid.ui.theme.TitlewithIcon
 import com.example.demoandroid.ui.theme.WrapPaddingRowWeight
-
-class RegisterActivity() : ComponentActivity() {
-    @SuppressLint("ViewModelConstructorInComposable")
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            val viewModel = RegisterViewModel()
-            val navController = rememberNavController()
-            RegisterScreen(navController, viewModel)
-        }
-    }
-}
 
 @Composable
 fun RegisterScreen(navController: NavHostController, viewModel: RegisterViewModel) {
@@ -115,7 +96,7 @@ fun RegisterScreen(navController: NavHostController, viewModel: RegisterViewMode
                 Text(stringResource(R.string.app_msg_ask_account), fontStyle = FontStyle.Italic, color = Color.LightGray)
             }
             Row {
-                WrapPaddingRowWeight { MyButton(stringResource(R.string.app_btn_login),onClick = { AppViewHelper.openActivity(context, RegisterActivity::class) }) }
+                WrapPaddingRowWeight { MyButton(stringResource(R.string.app_btn_login),onClick = { navController.navigate("login") }) }
             }
         }
     }
